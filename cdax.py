@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from typing import Any
-from src.providers.finnhub import FinnhubClient
+from finnhub import FinnhubClient
 
 def get_de_exchange_equities(api_key: str, exchange: str = "DE") -> list[str]:
     client = FinnhubClient(api_key=api_key)
