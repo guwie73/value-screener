@@ -1,19 +1,24 @@
-from __future__ import annotations
+from finnhub import FinnhubClient
 
-import pandas as pd
+def get_sp500_tickers(api_key: str) -> list[str]:
+    client = FinnhubClient(api_key=api_key)
+    data = client.stock_symbols(exchange="US")
 
-WIKI_SP500 = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-
-def get_sp500_tickers() -> list[str]:
-    tables = pd.read_html(WIKI_SP500)
-    df = tables[0]
-    col = "Symbol" if "Symbol" in df.columns else df.columns[0]
-    tickers = [str(x).strip().upper().replace(".", "-") for x in df[col].tolist()]
-    # Deduplicate while preserving order
-    seen = set()
+    # Finnhub liefert viele Symbole – wir filtern auf “Common Stock”-ähnlich
     out = []
-    for t in tickers:
-        if t and t not in seen:
+    for row in data:
+        sym = (row.get("symbol") or "").strip().upper()
+        typ = (row.get("type") or "").strip().upper()
+        if not sym:
+            continue
+        if "STOCK" in typ or "COMMON" in typ or typ in ("EQS", "EQUITY", "SHARE"):
+            out.append(sym)
+
+    # Deduplicate
+    seen = set()
+    res = []
+    for t in out:
+        if t not in seen:
             seen.add(t)
-            out.append(t)
-    return out
+            res.append(t)
+    return res
