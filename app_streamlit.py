@@ -4,14 +4,14 @@ import os
 import time
 import streamlit as st
 
-from src.providers.finnhub import FinnhubClient
-from src.providers.financials_as_reported import parse_periods, build_fundamentals_from_reported
-from src.screeners.buffett import buffett_screen
-from src.screeners.graham import graham_screen
-from src.universe.sp500 import get_sp500_tickers
-from src.universe.stoxx import get_stoxx_europe_600
-from src.universe.cdax import get_de_exchange_equities
-from src.universe.world import get_msci_world_universe_via_etf
+from finnhub import FinnhubClient
+from financials_as_reported import parse_periods, build_fundamentals_from_reported
+from buffett import buffett_screen
+from graham import graham_screen
+from sp500 import get_sp500_tickers
+from stoxx import get_stoxx_europe_600
+from cdax import get_de_exchange_equities
+from world import get_msci_world_universe_via_etf
 
 st.set_page_config(page_title="Value Screener", layout="wide")
 
