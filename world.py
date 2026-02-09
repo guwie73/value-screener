@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from src.providers.finnhub import FinnhubClient
+from finnhub import FinnhubClient
 
 def get_msci_world_universe_via_etf(api_key: str, etf_symbol: str = "URTH") -> list[str]:
     client = FinnhubClient(api_key=api_key)
