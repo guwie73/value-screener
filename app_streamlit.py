@@ -57,7 +57,7 @@ def get_reported(symbol: str) -> dict:
 def load_universe(choice: str, world_etf: str = "URTH") -> list[str]:
     k = api_key()
     if choice == "S&P 500":
-        return get_sp500_tickers()
+        return get_sp500_tickers(k)
     if choice == "STOXX Europe 600":
         return get_stoxx_europe_600()
     if choice == "CDAX (DE Exchange Approx)":
